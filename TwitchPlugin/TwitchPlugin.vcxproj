@@ -46,7 +46,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -130,17 +130,23 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\Steam\steamapps\common\rocketleague\Binaries\Win64\bakkesmod\bakkesmodsdk\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Grant\AppData\Roaming\bakkesmod\bakkesmod\bakkesmodsdk\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Program Files (x86)\Steam\steamapps\common\rocketleague\Binaries\Win64\bakkesmod\bakkesmodsdk\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Grant\AppData\Roaming\bakkesmod\bakkesmod\bakkesmodsdk\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>python C:\Users\Grant\AppData\Roaming\bakkesmod\bakkesmod\bakkesmodsdk\bakkes_patchplugin.py $(TargetPath) &amp; copy C:\Users\Grant\Desktop\Projects\TwitchPlugin\twitchplugin.set C:\Users\Grant\AppData\Roaming\bakkesmod\bakkesmod\plugins\settings\twitchplugin.set</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="RLCustomization.h" />
+    <ClInclude Include="base64.h" />
+    <ClInclude Include="BitBinary.h" />
     <ClInclude Include="TwitchPlugin.h" />
   </ItemGroup>
   <ItemGroup>

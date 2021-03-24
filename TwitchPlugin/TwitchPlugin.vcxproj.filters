@@ -18,6 +18,15 @@
     <ClInclude Include="TwitchPlugin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RLCustomization.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="base64.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BitBinary.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TwitchPlugin.cpp">
