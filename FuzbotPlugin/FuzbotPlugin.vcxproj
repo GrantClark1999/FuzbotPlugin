@@ -84,10 +84,13 @@
   </PropertyGroup>
   <ItemGroup>
     <ClInclude Include="*.h" />
+    <ClInclude Include="RocketLeague\*.h" />
     <ClInclude Include="util\*.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="*.cpp" />
+    <ClCompile Include="RocketLeague\*.cpp" />
+    <ClCompile Include="util\*.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

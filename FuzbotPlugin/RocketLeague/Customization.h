@@ -6,7 +6,7 @@
 #include <map>
 #include <string>
 
-#include "BitBinaryReader.h"
+#include "../util/BitBinaryReader.h"
 
 #define CURRENT_LOADOUT_VERSION 2
 
@@ -87,7 +87,8 @@ enum ITEMPAINT {
   PAINT_PLATINUM = 18
 };
 
-map<uint8_t, Item> read_items_from_buffer(BitBinaryReader<unsigned char>& reader) {
+map<uint8_t, Item> read_items_from_buffer(
+    BitBinaryReader<unsigned char>& reader) {
   map<uint8_t, Item> items;
   int itemsSize = reader.ReadBits<int>(4);
   for (int i = 0; i < itemsSize; i++) {
@@ -139,7 +140,8 @@ BMLoadout load(std::string loadoutString) {
     loadout.body.orangeColor.should_override = reader.ReadBool();
     if (loadout.body.blueColor.should_override) {
       loadout.body.orangeColor.primary_colors = read_colors_from_buffer(reader);
-      loadout.body.orangeColor.secondary_colors = read_colors_from_buffer(reader);
+      loadout.body.orangeColor.secondary_colors =
+          read_colors_from_buffer(reader);
     }
   }
 
