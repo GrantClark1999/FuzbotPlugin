@@ -6,11 +6,9 @@
 #include "RLCustomization.h"
 #include "bakkesmod/wrappers/gamewrapper.h"
 
-using namespace std;
-
 BAKKESMOD_PLUGIN(FuzbotPlugin, "Fuzbot Plugin", "0.0.1", PLUGINTYPE_FREEPLAY)
 
-void TwitchPlugin::onLoad() {
+void FuzbotPlugin::onLoad() {
   string itemCode = cvarManager->getCvar("cl_itemmod_code").getStringValue();
 
   cvarManager->registerNotifier(
@@ -22,17 +20,13 @@ void TwitchPlugin::onLoad() {
           return;
         }
 
-        for (ProductWrapper product : iw.GetAllProducts()) {
-          cvarManager->log(product.GetLabel().ToString());
-        }
-
         LoadoutWrapper lw = LoadoutWrapper(*reinterpret_cast<uintptr_t*>(iw.GetCurrentLoadout(0).memory_address));
         ArrayWrapper<int> loadout = lw.GetLoadout();
         cvarManager->log("Total items: " + to_string(loadout.Count()));
         for (int i = 0; i < loadout.Count(); i++) {
           int productId = loadout.Get(i);
           if (productId > 0) {
-            cvarManager->log(iw.GetProduct(productId).GetLabel().ToString());
+            cvarManager->log(iw.GetProduct(productId).GetAsciiLabel().ToString());
           }
         }
       },
@@ -61,5 +55,5 @@ void TwitchPlugin::onLoad() {
   //     },
   //     "Print BakkesMod Loadout", PERMISSION_ALL);
 };
-void TwitchPlugin::onUnload() {}
-void TwitchPlugin::onCarUpdate() {}
+void FuzbotPlugin::onUnload() {}
+void FuzbotPlugin::onCarUpdate() {}
