@@ -29,7 +29,7 @@ class BitBinaryReader {
   T ReadBits(int useLSBcount = sizeof(T) * 8) {
     T t = 0;
     for (int i = 0; i < useLSBcount; i++) {
-      t |= ((buffer[current_bit / type_size] >> (current_bit % type_size)) & 1) << i;
+      t |= (T)(((buffer[current_bit / type_size] >> (current_bit % type_size)) & 1) << i);
       current_bit++;
     }
     return t;

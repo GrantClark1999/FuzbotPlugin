@@ -10,7 +10,7 @@
       "args": [
         "${workspaceRoot}/FuzbotPlugin.sln",
         "/p:GenerateFullPaths=true",
-        "/t:build",
+        "/t:rebuild",
         "/clp:NoSummary"
       ],
       "group": {

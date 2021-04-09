@@ -10,6 +10,8 @@
 
 #define CURRENT_LOADOUT_VERSION 2
 
+using namespace std;
+
 struct Header {
   uint8_t version = 0;
   uint16_t code_size = 0;
@@ -36,9 +38,9 @@ struct OverrideColor {
 
 struct Body {
   bool blue_is_orange = true;
-  std::map<uint8_t, Item> blue_loadout;
+  map<uint8_t, Item> blue_loadout;
   OverrideColor blueColor;
-  std::map<uint8_t, Item> orange_loadout;
+  map<uint8_t, Item> orange_loadout;
   OverrideColor orangeColor;
 };
 
@@ -85,8 +87,8 @@ enum ITEMPAINT {
   PAINT_PLATINUM = 18
 };
 
-std::map<uint8_t, Item> read_items_from_buffer(BitBinaryReader<unsigned char>& reader) {
-  std::map<uint8_t, Item> items;
+map<uint8_t, Item> read_items_from_buffer(BitBinaryReader<unsigned char>& reader) {
+  map<uint8_t, Item> items;
   int itemsSize = reader.ReadBits<int>(4);
   for (int i = 0; i < itemsSize; i++) {
     Item option;
