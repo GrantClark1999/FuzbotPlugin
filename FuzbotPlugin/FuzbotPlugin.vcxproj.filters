@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TwitchPlugin.h">
+    <ClInclude Include="FuzbotPlugin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RLCustomization.h">
@@ -29,7 +29,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TwitchPlugin.cpp">
+    <ClCompile Include="FuzbotPlugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

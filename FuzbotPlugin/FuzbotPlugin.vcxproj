@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{c4fdf63e-f74c-495f-bab9-ad10dd8482e1}</ProjectGuid>
-    <RootNamespace>TwitchPlugin</RootNamespace>
+    <RootNamespace>FuzbotPlugin</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -140,17 +140,17 @@
       <AdditionalLibraryDirectories>C:\Users\Grant\AppData\Roaming\bakkesmod\bakkesmod\bakkesmodsdk\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>python C:\Users\Grant\AppData\Roaming\bakkesmod\bakkesmod\bakkesmodsdk\bakkes_patchplugin.py $(TargetPath) &amp; copy C:\Users\Grant\Desktop\Projects\TwitchPlugin\twitchplugin.set C:\Users\Grant\AppData\Roaming\bakkesmod\bakkesmod\plugins\settings\twitchplugin.set</Command>
+      <Command>python C:\Users\Grant\AppData\Roaming\bakkesmod\bakkesmod\bakkesmodsdk\bakkes_patchplugin.py $(TargetPath) &amp; copy C:\Users\Grant\Desktop\Projects\FuzbotPlugin\fuzbotplugin.set C:\Users\Grant\AppData\Roaming\bakkesmod\bakkesmod\plugins\settings\fuzbotplugin.set</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="RLCustomization.h" />
     <ClInclude Include="base64.h" />
     <ClInclude Include="BitBinary.h" />
-    <ClInclude Include="TwitchPlugin.h" />
+    <ClInclude Include="FuzbotPlugin.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TwitchPlugin.cpp" />
+    <ClCompile Include="FuzbotPlugin.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
