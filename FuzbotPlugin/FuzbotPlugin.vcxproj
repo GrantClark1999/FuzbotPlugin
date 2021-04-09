@@ -32,10 +32,8 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <ImportGroup Label="ExtensionSettings">
-  </ImportGroup>
-  <ImportGroup Label="Shared">
-  </ImportGroup>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="BakkesMod.props" />
@@ -81,16 +79,16 @@
       <AdditionalLibraryDirectories>$(BakkesModPath)\bakkesmodsdk\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
+  <PropertyGroup>
+    <ReadOnlyProject>true</ReadOnlyProject>
+  </PropertyGroup>
   <ItemGroup>
-    <ClInclude Include="RLCustomization.h" />
-    <ClInclude Include="base64.h" />
-    <ClInclude Include="BitBinary.h" />
-    <ClInclude Include="FuzbotPlugin.h" />
+    <ClInclude Include="*.h" />
+    <ClInclude Include="util\*.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FuzbotPlugin.cpp" />
+    <ClCompile Include="*.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
 </Project>
