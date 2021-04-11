@@ -6,12 +6,24 @@
 
 #include "base64.h"
 
+using namespace std;
+
 template <typename A>
 class BitReader {
  public:
   const int type_size = sizeof(A) * 8;
   int current_bit = 0;
   A* buffer;
+
+  BitReader(string hexString) {
+    vector<BYTE> decodedVector = base64_decode_bytearr(hexString);
+    buffer = (A*)malloc(decodedVector.size());
+    memcpy(buffer, &decodedVector[0], decodedVector.size());
+  }
+
+  BitReader(A* inBuf) { buffer = inBuf; }
+
+  ~BitReader() { delete buffer; }
 
   template <typename T>
   T ReadBits(int useLSBcount = sizeof(T) * 8) {

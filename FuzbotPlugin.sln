@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FuzbotPlugin", "FuzbotPlugin\FuzbotPlugin.vcxproj", "{C4FDF63E-F74C-495F-BAB9-AD10DD8482E1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FuzbotPlugin", "src\FuzbotPlugin.vcxproj", "{C4FDF63E-F74C-495F-BAB9-AD10DD8482E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

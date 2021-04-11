@@ -1,12 +1,4 @@
-#pragma once
-
 #include "FuzbotPlugin.h"
-
-#include <fstream>
-#include <ostream>
-
-#include "RocketLeague/Customization.h"
-#include "bakkesmod/wrappers/gamewrapper.h"
 
 BAKKESMOD_PLUGIN(FuzbotPlugin, "Fuzbot Plugin", "0.0.1", PLUGINTYPE_FREEPLAY)
 
@@ -14,27 +6,12 @@ void FuzbotPlugin::onLoad() {
   string itemCode = cvarManager->getCvar("cl_itemmod_code").getStringValue();
 
   cvarManager->registerNotifier(
-      "print_bm_loadout",
+      "print_vanilla_loadout",
       [this](vector<string> params) {
-        auto iw = gameWrapper->GetItemsWrapper();
-        if (iw.IsNull()) {
-          cvarManager->log("ItemsWrapper is null");
-          return;
-        }
-
-        LoadoutWrapper lw = LoadoutWrapper(*reinterpret_cast<uintptr_t*>(
-            iw.GetCurrentLoadout(0).memory_address));
-        ArrayWrapper<int> loadout = lw.GetLoadout();
-        cvarManager->log("Total items: " + to_string(loadout.Count()));
-        for (int i = 0; i < loadout.Count(); i++) {
-          int productId = loadout.Get(i);
-          if (productId > 0) {
-            cvarManager->log(
-                iw.GetProduct(productId).GetAsciiLabel().ToString());
-          }
-        }
+        Loadout loadout;
+        loadout.loadVanilla(0, cvarManager, gameWrapper);
       },
-      "", PERMISSION_ALL);
+      "Print Vanilla Loadout", PERMISSION_ALL);
 
   // cvarManager->registerNotifier(
   //     "print_bm_loadout",
