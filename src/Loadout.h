@@ -1,85 +1,51 @@
 #pragma once
 
 #include <array>
-#include <optional>
 #include <string>
 
+#include "BM.h"
 #include "BMCodeReader.h"
+#include "BitReader.h"
 #include "bakkesmod/plugin/bakkesmodplugin.h"
 
-using namespace std;
+typedef std::shared_ptr<GameWrapper> Game;
+typedef std::shared_ptr<CVarManagerWrapper> CvarManager;
 
-typedef shared_ptr<GameWrapper> Game;
-typedef shared_ptr<CVarManagerWrapper> CVarManager;
+class Item {
+ public:
+  Item(BM::Item item, ItemsWrapper iw);
+  Item(ProductWrapper prod, OnlineProductWrapper o_prod, Game game);
+  void setAttribute(ProductAttributeWrapper attr, Game game);
+  void json();
 
-const array<string, 28> SLOT = {"BODY",
-                                "DECAL",
-                                "WHEELS",
-                                "BOOST",
-                                "ANTENNA",
-                                "TOPPER",
-                                "6",
-                                "PRIMARY_FINISH",
-                                "BOT",
-                                "LOGO",
-                                "10",
-                                "PREMIUM_INVENTORY",
-                                "ACCENT_FINISH",
-                                "ENGINE",
-                                "TRAIL",
-                                "EXPLOSION",
-                                "BANNER",
-                                "17",
-                                "ANTHEM",
-                                "19",
-                                "AVATAR_BORDER",
-                                "TITLE",
-                                "ESPORTS_TEAM",
-                                "23",
-                                "BLUEPRINT",
-                                "SHOP_ITEM",
-                                "CURRENCY",
-                                "27"};
-
-const array<string, 10> QUALITY = {
-    "COMMON", "UNCOMMON",     "RARE",    "VERY_RARE", "IMPORT",
-    "EXOTIC", "BLACK_MARKET", "PREMIUM", "LIMITED",   "LEGACY"};
-
-const array<string, 19> PAINT = {
-    "NONE",      "CRIMSON",      "LIME",           "BLACK",   "SKY_BLUE",
-    "COBALT",    "BURNT_SIENNA", "FOREST_GREEN",   "PURPLE",  "PINK",
-    "ORANGE",    "GREY",         "TITANIUM_WHITE", "SAFFRON", "GOLD",
-    "ROSE_GOLD", "WHITE_GOLD",   "ONYX",           "PLATINUM"};
-
-struct Item {
-  // Vanilla
+ private:
   int id = 0;
-  string name = "";
-  string certified = "";
-  string special_edition = "";
-  string team_edition = "";
-  bool isPainted = false;
-  unsigned long paint = 0;
+  std::string name = "";
+  std::string quality = "";
+  std::string certified = "";  // Vanilla only
+  std::string painted = "";
+  std::string special_edition = "";
+  std::string team_edition = "";
 
-  // BakkesMod
-  int bm_id = 0;
-  string bm_name = "";
-  string bm_special_edition = "";
-  string bm_team_edition = "";
-  unsigned long bm_paint = 0;
-
-  Item(uint64_t id, bool isOnline, Game gw);
+  void setCertified(uintptr_t mem_addr, ItemsWrapper iw);
+  void setPainted(uintptr_t mem_addr, ItemsWrapper iw);
+  void setSpecialEdition(uintptr_t mem_addr, ItemsWrapper iw);
+  void setTeamEdition(uintptr_t mem_addr, ItemsWrapper iw);
 };
 
 class Loadout {
  public:
-  void load(int teamNum, CVarManager cv, Game gw);
-  void loadVanilla(int teamNum, CVarManager cv, Game gw);
-  void loadBakkes(int teamNum, CVarManager cv, Game gw);
+  // Vanilla
+  Loadout(bool isOrange, CvarManager cvarManager, Game game);
+  // BakkesMod
+  Loadout(bool isOrange, BM::Teams teams, CvarManager cvarManager, Game game);
 
-  // void clear() { items.clear(); };
-  string toString();
+  void clear() { items.clear(); }
+  void json();
 
  private:
-  // map<string, Item> items;
+  CvarManager cvarManager;
+  Game game;
+  std::map<std::string, Item> items;
+  BM::Color color;
 };

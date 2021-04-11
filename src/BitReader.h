@@ -6,8 +6,6 @@
 
 #include "base64.h"
 
-using namespace std;
-
 template <typename A>
 class BitReader {
  public:
@@ -16,12 +14,12 @@ class BitReader {
   A* buffer;
 
   BitReader(string hexString) {
-    vector<BYTE> decodedVector = base64_decode_bytearr(hexString);
+    std::vector<BYTE> decodedVector = base64_decode_bytearr(hexString);
     buffer = (A*)malloc(decodedVector.size());
     memcpy(buffer, &decodedVector[0], decodedVector.size());
   }
 
-  BitReader(A* inBuf) { buffer = inBuf; }
+  BitReader(A* inBuf) : buffer(inBuf){};
 
   ~BitReader() { delete buffer; }
 

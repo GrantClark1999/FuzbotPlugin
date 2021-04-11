@@ -4,7 +4,7 @@
       "name": "Win32",
       "includePath": [
         "${default}",
-        // TODO: Replace with something similar to what is in BakkesMod.props
+        "./include/*",
         "C:/Users/Grant/AppData/Roaming/bakkesmod/bakkesmod/bakkesmodsdk/include/*"
       ],
       "defines": ["_DEBUG", "UNICODE", "_UNICODE"],
