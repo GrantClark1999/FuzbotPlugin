@@ -1,35 +1,52 @@
 #include "FuzbotPlugin.h"
 
+#include <bitset>
+#include <iomanip>
+
 BAKKESMOD_PLUGIN(FuzbotPlugin, "Fuzbot Plugin", "0.0.1", PLUGINTYPE_FREEPLAY)
 
-TeamLoadouts::TeamLoadouts(bool isOrange, BM::Teams teams,
-                           CvarManager cvarManager, Game game) {
-  vanilla = new Loadout(isOrange, cvarManager, game);
-  bakkes = new Loadout(isOrange, teams, cvarManager, game);
-};
+CvarManager g_cvarManager = nullptr;
 
-FuzbotPlugin::FuzbotPlugin() {
-  if (!cvarManager->getCvar("cl_itemmod_enabled").getBoolValue()) return;
-  std::string itemCode =
-      cvarManager->getCvar("cl_itemmod_code").getStringValue();
-  BM::Teams teams = BMCodeReader::Read(itemCode);
+void LOG(std::string text) {
+  if (g_cvarManager != nullptr) g_cvarManager->log(text);
+}
+void LOG(std::wstring text) {
+  if (g_cvarManager != nullptr) g_cvarManager->log(text);
+}
 
-  blue = new TeamLoadouts(0, teams, cvarManager, gameWrapper);
-  orange = new TeamLoadouts(1, teams, cvarManager, gameWrapper);
+Team::Team(bool isOrange, BM::Teams bmTeams, CvarManager cvarManager,
+           Game game) {
+  loadouts["vanilla"] = Loadout(isOrange, cvarManager, game);
+  loadouts["bakkes"] = Loadout(isOrange, bmTeams, cvarManager, game);
 };
 
 void FuzbotPlugin::onLoad() {
-  std::string itemCode =
-      cvarManager->getCvar("cl_itemmod_code").getStringValue();
+  g_cvarManager = cvarManager;
 
   cvarManager->registerNotifier(
-      "print_vanilla_loadout",
+      "print_loadout",
       [this](std::vector<std::string> params) {
-        Loadout vanillaLoadout(0, cvarManager, gameWrapper);
+        BM::Teams bmTeams;
+        if (cvarManager->getCvar("cl_itemmod_enabled").getBoolValue()) {
+          std::string itemCode =
+              cvarManager->getCvar("cl_itemmod_code").getStringValue();
+          LOG(itemCode);
+          bmTeams = BMCodeReader::Read(itemCode);
+          auto decoded = base64_decode_bytearr(itemCode);
+        }
+
+        teams["blue"] = Team(false, bmTeams, cvarManager, gameWrapper);
+        teams["orange"] = Team(true, bmTeams, cvarManager, gameWrapper);
+
+        std::ofstream file(
+            "C:\\Users\\Grant\\Desktop\\Projects\\FuzbotPlugin\\output.json");
+        file << std::setw(2) << teams << std::endl;
       },
       "Print Vanilla Loadout", PERMISSION_ALL);
 };
 
-void FuzbotPlugin::onUnload() {
-  cvarManager->removeNotifier("print_vanilla_loadout");
-}
+void FuzbotPlugin::onUnload() { cvarManager->removeNotifier("print_loadout"); }
+
+// JSON conversions
+
+void to_json(json& j, const Team& team) { j = team.loadouts; }

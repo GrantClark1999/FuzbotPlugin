@@ -16,17 +16,10 @@ class Item {
   Item(BM::Item item, ItemsWrapper iw);
   Item(ProductWrapper prod, OnlineProductWrapper o_prod, Game game);
   void setAttribute(ProductAttributeWrapper attr, Game game);
-  void json();
+
+  json data;
 
  private:
-  int id = 0;
-  std::string name = "";
-  std::string quality = "";
-  std::string certified = "";  // Vanilla only
-  std::string painted = "";
-  std::string special_edition = "";
-  std::string team_edition = "";
-
   void setCertified(uintptr_t mem_addr, ItemsWrapper iw);
   void setPainted(uintptr_t mem_addr, ItemsWrapper iw);
   void setSpecialEdition(uintptr_t mem_addr, ItemsWrapper iw);
@@ -40,12 +33,12 @@ class Loadout {
   // BakkesMod
   Loadout(bool isOrange, BM::Teams teams, CvarManager cvarManager, Game game);
 
-  void clear() { items.clear(); }
-  void json();
+  json items;
 
  private:
   CvarManager cvarManager;
   Game game;
-  std::map<std::string, Item> items;
-  BM::Color color;
 };
+
+void to_json(json& j, const Item& item);
+void to_json(json& j, const Loadout& loadout);

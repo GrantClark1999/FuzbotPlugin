@@ -69,6 +69,10 @@
     "xtree": "cpp",
     "xutility": "cpp",
     "array": "cpp",
-    "optional": "cpp"
+    "optional": "cpp",
+    "forward_list": "cpp",
+    "numeric": "cpp",
+    "valarray": "cpp",
+    "bitset": "cpp"
   }
 }

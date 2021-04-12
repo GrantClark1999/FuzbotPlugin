@@ -13,7 +13,7 @@ class BitReader {
   int current_bit = 0;
   A* buffer;
 
-  BitReader(string hexString) {
+  BitReader(std::string hexString) {
     std::vector<BYTE> decodedVector = base64_decode_bytearr(hexString);
     buffer = (A*)malloc(decodedVector.size());
     memcpy(buffer, &decodedVector[0], decodedVector.size());

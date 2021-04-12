@@ -27,5 +27,5 @@ class BMCodeReader : public BitReader<uint8_t> {
   std::vector<BM::Item> ReadItems();
   BM::Item ReadItem();
   std::string ReadRGB();
-  BM::Color ReadColor();
+  json ReadColor();
 };
